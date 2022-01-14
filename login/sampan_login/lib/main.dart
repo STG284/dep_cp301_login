@@ -127,9 +127,20 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (_formstate.currentState!.validate()) {
-                    NetworkCalls.signIn(name, password);
+                    bool? wasSuccess =
+                        await NetworkCalls.signIn(name, password);
+
+                    String message = "Something went wrong!";
+                    if (wasSuccess != null)
+                      message = wasSuccess
+                          ? "Logged in Success!"
+                          : "Wrong username/password";
+
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text(message)),
+                    );
                   }
                 },
                 child: Text("Submit"))
