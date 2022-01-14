@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:sampan_login/utils/network.dart';
 
 void main() {
   runApp(MyApp());
@@ -128,7 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ElevatedButton(
                 onPressed: () {
                   if (_formstate.currentState!.validate()) {
-                    log("login username = $name, password = $password");
+                    NetworkCalls.signIn(name, password);
                   }
                 },
                 child: Text("Submit"))
